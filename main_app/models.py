@@ -2,6 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
+class Profile(models.Model):
+    name = models.CharField(max_length=50)
+
 class City(models.Model):
     name = models.CharField()
     aqi = models.IntegerField()
@@ -19,7 +22,7 @@ class Log(models.Model):
         default=OPTIONS[0][0]
     )
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.get_option_display()} on {self.date}"
