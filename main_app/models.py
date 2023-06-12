@@ -2,15 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-class Profile(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-    
-    def get_absolute_url(self):
-        return reverse('detail', kwargs={'profile_id': self.id})
-
 class City(models.Model):
     name = models.CharField()
     aqi = models.IntegerField()
@@ -20,6 +11,17 @@ class City(models.Model):
     
     def get_absolute_url(self):
         return reverse('city_detail', kwargs={'pk': self.id})
+    
+class Profile(models.Model):
+    name = models.CharField(max_length=50)
+    cities = models.ManyToManyField(City)
+
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'profile_id': self.id})
+
 
 class Log(models.Model):
     OPTIONS = (
