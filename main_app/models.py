@@ -15,6 +15,12 @@ class City(models.Model):
     name = models.CharField()
     aqi = models.IntegerField()
 
+    def __str__(self):
+        return self.name
+    
+    def get_absolute_url(self):
+        return reverse('city_detail', kwargs={'pk': self.id})
+
 class Log(models.Model):
     OPTIONS = (
         ('B', 'Breathe Deeper'),

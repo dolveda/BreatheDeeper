@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Profile, Log, City
 
-# Register your models here.
+admin.site.register(Profile)
+admin.site.register(Log)
+admin.site.register(City)
