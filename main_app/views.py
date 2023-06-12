@@ -82,7 +82,7 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
     fields = ['name']
 
     def form_valid(self, form):
-        form.instance.usser = self.request.user
+        form.instance.user = self.request.user
         return super().form_valid(form)
 
 class ProfileUpdate(LoginRequiredMixin, UpdateView):
