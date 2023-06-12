@@ -27,6 +27,10 @@ def cities_index(request):
     cities = City.objects.all()
     return render(request, 'cities/index.html', {'cities': cities})
 
+def city_detail(request, city_id):
+    city = City.objects.get(id=city_id)
+    return render(request, 'cities/city_detail.html', {'city': city})
+
 class ProfileCreate(CreateView):
     model = Profile
     fields = '__all__'
