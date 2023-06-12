@@ -37,9 +37,13 @@ def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
     return render(request, 'cities/city_detail.html', {'city': city})
 
+def assoc_city(requst, profile_id, city_id):
+    Profile.objects.get(id=profile_id).cities.add(city_id)
+    return redirect('detail', profile_id=profile_id)
+
 class ProfileCreate(CreateView):
     model = Profile
-    fields = '__all__'
+    fields = ['name']
 
 class ProfileUpdate(UpdateView):
     model = Profile
