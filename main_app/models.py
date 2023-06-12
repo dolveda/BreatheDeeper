@@ -15,6 +15,7 @@ class City(models.Model):
 class Profile(models.Model):
     name = models.CharField(max_length=50)
     cities = models.ManyToManyField(City)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
