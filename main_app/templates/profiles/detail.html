@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-content">
+      <span class="card-title blue-text">{{ profile.name }}</span>
+    </div>
+    <div class="card-action">
+        <a href="{% url 'profiles_update' profile.id %}">Edit</a>
+        <a href="{% url 'profiles_delete' profile.id %}">Delete</a>
+      </div>
+  </div>
+{% endblock %}
