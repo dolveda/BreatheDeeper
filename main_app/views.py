@@ -24,7 +24,8 @@ def add_log(request, profile_id):
     return redirect('detail', profile_id=profile_id)
 
 def cities_index(request):
-    return render(request, 'cities/index.html')
+    cities = City.objects.all()
+    return render(request, 'cities/index.html', {'cities': cities})
 
 class ProfileCreate(CreateView):
     model = Profile

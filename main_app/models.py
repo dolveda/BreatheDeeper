@@ -38,3 +38,6 @@ class Log(models.Model):
 
     def __str__(self):
         return f"{self.get_option_display()} on {self.date}"
+    
+    class Meta:
+        ordering = ['-date']

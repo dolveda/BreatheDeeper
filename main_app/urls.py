@@ -10,4 +10,5 @@ urlpatterns = [
     path('profiles/<int:pk>/delete', views.ProfileDelete.as_view(), name='profiles_delete'),
     path('profiles/<int:profile_id>/add_log/', views.add_log, name='add_log'),
     path('cities/', views.cities_index, name='index'),
+    path('cities/<int:city_id>/', views.city_detail, name='city_detail'),
 ]

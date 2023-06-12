@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block  content %}
 
-<h1>Cities</h1>
+<h1 class="blue-text">Cities:</h1>
+
+{% for city in cities %}
+  <div class="card">
+    <a href="{% url 'city_detail' city.id %}">
+        <div class="card-content">
+        <span class="card-title blue-text">{{ city.name }}</span>
+        </div>
+    </a>
+  </div>
+{% endfor %}
 
 {% endblock %}

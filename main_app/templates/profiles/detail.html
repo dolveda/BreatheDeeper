@@ -26,8 +26,8 @@
           <tbody>
             {% for log in profile.log_set.all %}
               <tr>
-                <td>{{log.date}}</td>
-                <td>{{log.get_option_display}}</td>
+                <td class="blue-text">{{log.date}}</td>
+                <td class="blue-text">{{log.get_option_display}}</td>
               </tr>
             {% endfor %}
           </tbody>
