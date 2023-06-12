@@ -41,6 +41,10 @@ def assoc_city(requst, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.add(city_id)
     return redirect('detail', profile_id=profile_id)
 
+def unassoc_city(requst, profile_id, city_id):
+    Profile.objects.get(id=profile_id).cities.remove(city_id)
+    return redirect('detail', profile_id=profile_id)
+
 class ProfileCreate(CreateView):
     model = Profile
     fields = ['name']
