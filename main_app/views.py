@@ -56,6 +56,10 @@ class ProfileCreate(CreateView):
     model = Profile
     fields = ['name']
 
+    def form_valid(self, form):
+        form.instance.usser = self.request.user
+        return super().form_valid(form)
+
 class ProfileUpdate(UpdateView):
     model = Profile
     fields = '__all__'
