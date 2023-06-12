@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Profile, City
 
 def home(request):
@@ -10,3 +11,7 @@ def profiles_index(request):
 
 def cities_index(request):
     return render(request, 'cities/index.html')
+
+class ProfileCreate(CreateView):
+    model = Profile
+    fields = '__all__'
