@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, City
 from .forms import LogForm
 import requests
@@ -8,7 +10,7 @@ def home(request):
     return render(request, 'home.html')
 
 def profiles_index(request):
-    profiles = Profile.objects.all()
+    profiles = Profile.objects.filter(user=request.user)
     return render(request, 'profiles/profiles.html', {'profiles': profiles})
 
 def profiles_detail(request, profile_id):
@@ -44,13 +46,27 @@ def city_detail(request, city_id):
         'response': response
         })
 
-def assoc_city(requst, profile_id, city_id):
+def assoc_city(request, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.add(city_id)
     return redirect('detail', profile_id=profile_id)
 
-def unassoc_city(requst, profile_id, city_id):
+def unassoc_city(request, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.remove(city_id)
     return redirect('detail', profile_id=profile_id)
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
 
 class ProfileCreate(CreateView):
     model = Profile

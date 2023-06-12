@@ -23,6 +23,7 @@
               <li><a href="{% url 'index' %}" class="blue-text">View Cities</a></li>
               <li><a href="{% url 'logout' %}" class="blue-text">Log Out</a></li>
               {% else %}
+              <li><a href="{% url 'signup' %}" class="blue-text">Sign Up</a></li>
               <li><a href="{% url 'login' %}" class="blue-text">Log In</a></li>
               {% endif %}
             </ul>

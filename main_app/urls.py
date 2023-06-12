@@ -13,4 +13,5 @@ urlpatterns = [
     path('profiles/<int:profile_id>/unassoc_city/<int:city_id>/', views.unassoc_city, name='unassoc_city'),
     path('cities/', views.cities_index, name='index'),
     path('cities/<int:city_id>/', views.city_detail, name='city_detail'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]
