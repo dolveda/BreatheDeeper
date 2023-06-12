@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Profile, City
 from .forms import LogForm
 import requests
@@ -9,10 +11,12 @@ import requests
 def home(request):
     return render(request, 'home.html')
 
+@login_required
 def profiles_index(request):
     profiles = Profile.objects.filter(user=request.user)
     return render(request, 'profiles/profiles.html', {'profiles': profiles})
 
+@login_required
 def profiles_detail(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
     id_list = profile.cities.all().values_list('id')
@@ -24,6 +28,7 @@ def profiles_detail(request, profile_id):
         'cities': unassociated_cities}
         )
 
+@login_required
 def add_log(request, profile_id):
     form = LogForm(request.POST)
     if form.is_valid():
@@ -32,10 +37,12 @@ def add_log(request, profile_id):
         new_log.save()
     return redirect('detail', profile_id=profile_id)
 
+@login_required
 def cities_index(request):
     cities = City.objects.all()
     return render(request, 'cities/index.html', {'cities': cities})
 
+@login_required
 def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
     coordinates = City.objects.get(id=city_id).coordinates
@@ -46,10 +53,12 @@ def city_detail(request, city_id):
         'response': response
         })
 
+@login_required
 def assoc_city(request, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.add(city_id)
     return redirect('detail', profile_id=profile_id)
 
+@login_required
 def unassoc_city(request, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.remove(city_id)
     return redirect('detail', profile_id=profile_id)
@@ -68,7 +77,7 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-class ProfileCreate(CreateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     model = Profile
     fields = ['name']
 
@@ -76,10 +85,10 @@ class ProfileCreate(CreateView):
         form.instance.usser = self.request.user
         return super().form_valid(form)
 
-class ProfileUpdate(UpdateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     model = Profile
     fields = '__all__'
 
-class ProfileDelete(DeleteView):
+class ProfileDelete(LoginRequiredMixin, DeleteView):
     model = Profile
     success_url = '/profiles'
