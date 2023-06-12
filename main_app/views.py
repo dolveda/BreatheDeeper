@@ -12,8 +12,14 @@ def profiles_index(request):
 
 def profiles_detail(request, profile_id):
     profile = Profile.objects.get(id=profile_id)
+    id_list = profile.cities.all().values_list('id')
+    unassociated_cities = City.objects.exclude(id__in=id_list)
     log_form = LogForm()
-    return render(request, 'profiles/detail.html', { 'profile': profile, 'log_form': log_form })
+    return render(request, 'profiles/detail.html', { 
+        'profile': profile, 
+        'log_form': log_form , 
+        'cities': unassociated_cities}
+        )
 
 def add_log(request, profile_id):
     form = LogForm(request.POST)
