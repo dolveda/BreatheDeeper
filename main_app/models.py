@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class City(models.Model):
     name = models.CharField()
-    aqi = models.IntegerField()
+    coordinates = models.CharField()
 
     def __str__(self):
         return self.name

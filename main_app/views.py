@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Profile, City
 from .forms import LogForm
+import requests
 
 def home(request):
     return render(request, 'home.html')
@@ -35,7 +36,13 @@ def cities_index(request):
 
 def city_detail(request, city_id):
     city = City.objects.get(id=city_id)
-    return render(request, 'cities/city_detail.html', {'city': city})
+    coordinates = City.objects.get(id=city_id).coordinates
+    url = f"https://air-quality-api.open-meteo.com/v1/air-quality?{coordinates}&hourly=us_aqi&timezone=America%2FLos_Angeles"
+    response = requests.get(url).json()
+    return render(request, 'cities/city_detail.html', {
+        'city': city,
+        'response': response
+        })
 
 def assoc_city(requst, profile_id, city_id):
     Profile.objects.get(id=profile_id).cities.add(city_id)

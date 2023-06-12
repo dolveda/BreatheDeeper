@@ -3,5 +3,10 @@
 
 <h1 class="blue-text">{{ city.name }}:</h1>
 
+<div class="card">
+    <div class="card-content">
+      <span class="card-title blue-text">Air Quality Index is at {{ response.hourly.us_aqi.0 }}</span>
+    </div>
+</div>
 
 {% endblock %}
