@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="card">
-    <div class="card-content">
-      <span class="card-title blue-text">{{ profile.name }}</span>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+            <div class="card-content">
+            <span class="card-title blue-text">{{ profile.name }}</span>
+            </div>
+            <div class="card-action">
+                <a href="{% url 'profiles_update' profile.id %}">Edit</a>
+                <a href="{% url 'profiles_delete' profile.id %}">Delete</a>
+            </div>
+        </div>
     </div>
-    <div class="card-action">
-        <a href="{% url 'profiles_update' profile.id %}">Edit</a>
-        <a href="{% url 'profiles_delete' profile.id %}">Delete</a>
+    <div class="col s6">
+        <table class="striped">
+          <thead>
+            <tr><th>Date</th><th>Option</th></tr>
+          </thead>
+          <tbody>
+            {% for log in profile.log_set.all %}
+              <tr>
+                <td>{{log.date}}</td>
+                <td>{{log.get_option_display}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
-  </div>
+</div>
 {% endblock %}
