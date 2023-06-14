@@ -4,16 +4,17 @@ Welcome to Breathe Deeper! This is a website designed for Californians or those 
 
 ## Technologies Used
 This App was created using:
--Python
--Django
--HTML
--CSS
--Javascript
--Materialize CSS Library
--Open-Meteo Air Quality API
+-Python  
+-Django  
+-HTML  
+-CSS  
+-Javascript  
+-Materialize CSS Library  
+-Open-Meteo Air Quality API  
+-Heroku  
 
 ## Getting Started
-
+https://breathe-deeper.herokuapp.com/  
 Click the link to navigate to the homepage and get the rundown!
 ![home](./screenshots/home.png)
 
