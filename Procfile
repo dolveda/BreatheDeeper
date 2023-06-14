@@ -1,1 +1,1 @@
-web: gunicorn --chdir breathedeeper.wsgi
+web: gunicorn breathedeeper.wsgi
