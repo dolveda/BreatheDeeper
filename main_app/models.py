@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 
 class City(models.Model):
-    name = models.CharField()
-    coordinates = models.CharField()
+    name = models.CharField(max_length=50)
+    coordinates = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
